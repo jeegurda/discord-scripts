@@ -1,10 +1,9 @@
 ;(async () => {
-  // Change me
-  var channel = '189322461374840832'
-  var authorization = 'token'
-  var username = 'carl'
-  var history = 1000
-  var dry = false
+  var channel = '189322461374840832' // Your channel
+  var authorization = 'token' // Your auth token
+  var username = 'carl' // Username to match
+  var history = 1000 // How many messages to fetch (total)
+  var dry = true // Change to false to actually send DELETE requests
 
 
   var limit = 100
