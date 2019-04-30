@@ -60,7 +60,6 @@
   const channel = 'channel' // Your channel
   const message =  'message' // Your message ID
   const authorization = 'token' // Your auth token
-  const username = 'carl' // Your username
 
   const getShitpost = ((index = 0) =>
     () => `\`\`\`\n${frames[index++ % frames.length]}\n\`\`\``
@@ -75,7 +74,7 @@
     body: JSON.stringify({ content: getShitpost() })
   })
     .then(s => s.json())
-    .catch(e => console.warn(e))
+    .catch(e => console.warn('Shitpost failed: %o', e))
 
   const startShitposting = async () => {
     await shitpost()
