@@ -82,7 +82,7 @@
     await shitpost()
 
     if (
-      stopShitpostingPlz in window &&
+      'stopShitpostingPlz' in window &&
       timeout
     ) {
       clearTimeout(timeout)
