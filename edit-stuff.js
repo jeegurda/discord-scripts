@@ -61,6 +61,8 @@
   const message =  'message' // Your message ID
   const authorization = 'token' // Your auth token
 
+  let timeout
+
   const getShitpost = ((index = 0) =>
     () => `\`\`\`\n${frames[index++ % frames.length]}\n\`\`\``
   )()
@@ -79,8 +81,15 @@
   const startShitposting = async () => {
     await shitpost()
 
-    if (!window.stopShitpostingPlz) {
-      setTimeout(startShitposting, 1000)
+    if (
+      stopShitpostingPlz in window &&
+      timeout
+    ) {
+      clearTimeout(timeout)
+      console.log('Shitpost has been cancelled')
+      delete window.stopShitpostingPlz
+    } else {
+      timeout = setTimeout(startShitposting, 1000)
     }
   }
 
