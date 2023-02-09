@@ -1,7 +1,12 @@
 ;(async () => {
   const channel = '268087097641009162' // Your channel
   const authorization = '' // Your auth token
-  const username = 'jeegurda' // Username to match
+  const matchBy = {
+    // Match author by a combination of these fields, null to omit
+    discriminator: '9251',
+    id: null,
+    username: 'jeegurda',
+  }
   let history = 1000 // How many messages to fetch (total)
   const dry = true // Change to false to actually send DELETE requests
 
@@ -27,20 +32,25 @@
     console.log(`Received ${messages.length} messages`)
   }
 
-  const userMessages = messages
-    .filter((i) => i.author.username === username)
-    .map((m) => m.id)
+  const userMessages = messages.filter((i) =>
+    Object.entries(matchBy).every(([k, v]) => v === null || i.author[k] === v),
+  )
+
+  const umIds = userMessages.map((m) => m.id)
 
   console.log(
-    `Found ${userMessages.length} your messages. Out of %o. Check username if 0`,
+    `Found ${userMessages.length} your messages.${
+      userMessages.length === 0 ? ' Check match object.' : ''
+    } Messages: %o`,
+    userMessages,
   )
 
   if (dry) {
     return
   }
 
-  for (let i of userMessages) {
-    await fetch(`/api/v6/channels/${channel}/messages/${i}`, {
+  for (let id of umIds) {
+    await fetch(`/api/v6/channels/${channel}/messages/${id}`, {
       headers: new Headers({ authorization }),
       method: 'DELETE',
     })
