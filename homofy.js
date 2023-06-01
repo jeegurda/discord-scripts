@@ -1,3 +1,6 @@
+/** 0..1 */
+const GAY_INTENSITY = 0.5
+
 Array.from($$('[class*="wrapper"][role=img]')).forEach((w) => {
   const el = document.createElement('div')
   el.style.height = '100%'
@@ -20,7 +23,7 @@ Array.from($$('[class*="wrapper"][role=img]')).forEach((w) => {
     #6D1883 calc(100% / 6 * 5),
     #6D1883 calc(100% / 6 * 6)
 )`
-  el.style.opacity = '0.5'
+  el.style.opacity = `${GAY_INTENSITY}`
   el.style.zIndex = '1'
   el.style.borderRadius = '50%'
   w.prepend(el)
